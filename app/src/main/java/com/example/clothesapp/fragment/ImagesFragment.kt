@@ -1,6 +1,5 @@
-package com.example.clothesapp
+package com.example.clothesapp.fragment
 
-import android.media.Image
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -10,8 +9,10 @@ import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
-import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.clothesapp.ClothesRecyclerViewAdapter
+import com.example.clothesapp.R
+import com.example.clothesapp.data.data
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 
 class ImagesFragment : Fragment() {
@@ -29,6 +30,7 @@ class ImagesFragment : Fragment() {
             recyclerView.layoutManager = GridLayoutManager(view.context, 2)
         }
         view.findViewById<FloatingActionButton>(R.id.fabAddClothes).setOnClickListener {
+            data.currentFragment = R.id.changeImageFragment
             view.findNavController().navigate(R.id.action_imagesFragment_to_changeImageFragment)
         }
         return view

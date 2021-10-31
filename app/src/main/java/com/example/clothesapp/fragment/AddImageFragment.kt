@@ -1,4 +1,4 @@
-package com.example.clothesapp
+package com.example.clothesapp.fragment
 
 import android.Manifest
 import android.content.pm.PackageManager
@@ -7,11 +7,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
-import android.widget.TextView
 import androidx.core.app.ActivityCompat
 import androidx.fragment.app.Fragment
 import androidx.navigation.findNavController
-import androidx.recyclerview.widget.RecyclerView
+import com.example.clothesapp.MainActivity
+import com.example.clothesapp.R
+import com.example.clothesapp.data.data
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 
 
@@ -25,6 +26,7 @@ class AddImageFragment : Fragment() {
         val fab = view.findViewById<FloatingActionButton>(R.id.fabOk)
 
         fab.setOnClickListener {
+            data.currentFragment = R.id.imagesFragment
             view.findNavController().navigate(R.id.action_changeImageFragment_to_imagesFragment)
         }
 

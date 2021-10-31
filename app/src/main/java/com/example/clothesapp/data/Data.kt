@@ -1,11 +1,16 @@
-package com.example.clothesapp
+package com.example.clothesapp.data
 
 import android.graphics.Bitmap
+import com.example.clothesapp.*
+import com.example.clothesapp.fragment.ImagesFragment
 
 object data {
     val allNames = mutableListOf<ClothName>(
         TShirt(), Shirt(), Jacket(), Jeans(), Shorts(), Beanie(), Cylinder()
     )
+
+    var currentFragment = R.id.imagesFragment//надеюсь, что найду фикс поумнее
+
     val clothes = arrayOf(
         "Футболка",
         "Кофта",
@@ -61,6 +66,9 @@ object data {
         "Серый" to Gray(),
         "Розовый" to Pink()
     )
+
+    var chosenItems = mutableListOf<Int>()
+
     var currentListOfBitmaps = mutableListOf<Bitmap>()
     var currentListOfClothes = mutableListOf<Clothes>()
 }

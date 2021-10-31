@@ -1,7 +1,6 @@
-package com.example.clothesapp
+package com.example.clothesapp.fragment
 
 import android.app.AlertDialog
-import android.content.DialogInterface
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -10,8 +9,11 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.navigation.findNavController
-import com.example.clothesapp.data.allColors
-import com.example.clothesapp.data.clothes
+import com.example.clothesapp.Clothes
+import com.example.clothesapp.R
+import com.example.clothesapp.data.data
+import com.example.clothesapp.data.data.allColors
+import com.example.clothesapp.data.data.clothes
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 
 class EditClothesFragment : Fragment() {
@@ -89,7 +91,7 @@ class EditClothesFragment : Fragment() {
                             val newCloth = Clothes(
                                 currentCloth.name,
                                 currentCloth.photo,
-                                data.colorNameToColor[data.allColors[pos]]!!
+                                data.colorNameToColor[allColors[pos]]!!
                             )
                             data.currentListOfClothes[position] = newCloth
                             view.findViewById<TextView>(R.id.textViewChangeColor).text =
@@ -110,6 +112,7 @@ class EditClothesFragment : Fragment() {
             alertDialogChooseEdit.show()
         }
         view.findViewById<FloatingActionButton>(R.id.fabChangeOk).setOnClickListener {
+            data.currentFragment = R.id.imagesFragment
             view.findNavController().navigate(R.id.action_editClothesFragment_to_imagesFragment)
         }
         return view

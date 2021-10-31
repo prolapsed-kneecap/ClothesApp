@@ -1,4 +1,4 @@
-package com.example.clothesapp
+package com.example.clothesapp.adapter
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -8,9 +8,11 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
+import com.example.clothesapp.R
+import com.example.clothesapp.data.data
 
 
-class ClothesRecyclerViewAdapter : RecyclerView.Adapter<ClothesRecyclerViewAdapter.MyViewHolder>() {
+class RecyclerViewAdapterRemove : RecyclerView.Adapter<RecyclerViewAdapterRemove.MyViewHolder>() {
     inner class MyViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         fun onBing(position: Int) {
             var currentClothes = data.currentListOfClothes[position]
@@ -23,9 +25,14 @@ class ClothesRecyclerViewAdapter : RecyclerView.Adapter<ClothesRecyclerViewAdapt
 
             itemView.findViewById<ImageView>(R.id.imageView2).setImageBitmap(currentClothes.photo)
             itemView.setOnClickListener {
-                var bundle = Bundle()
-                bundle.putInt("position", position)
-                itemView.findNavController().navigate(R.id.action_imagesFragment_to_editClothesFragment, bundle)
+                if (position in data.chosenItems){
+                    itemView.alpha=1F
+                    data.chosenItems.remove(position)
+                }
+                else{
+                    itemView.alpha=0.5F
+                    data.chosenItems.add(position)
+                }
             }
 //            itemView.findViewById<FloatingActionButton>(R.id.floatingActionButton3).setOnClickListener {
 //                val intent = Intent()

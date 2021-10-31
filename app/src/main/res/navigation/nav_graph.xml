@@ -12,16 +12,19 @@
         tools:layout="@layout/activity_main" />
     <fragment
         android:id="@+id/changeImageFragment"
-        android:name="com.example.clothesapp.AddImageFragment"
+        android:name="com.example.clothesapp.fragment.AddImageFragment"
         android:label="fragment_change_image"
         tools:layout="@layout/fragment_add_image" >
         <action
             android:id="@+id/action_changeImageFragment_to_imagesFragment"
             app:destination="@id/imagesFragment" />
+        <action
+            android:id="@+id/action_changeImageFragment_to_removeFragment"
+            app:destination="@id/removeFragment" />
     </fragment>
     <fragment
         android:id="@+id/imagesFragment"
-        android:name="com.example.clothesapp.ImagesFragment"
+        android:name="com.example.clothesapp.fragment.ImagesFragment"
         android:label="fragment_images"
         tools:layout="@layout/fragment_images" >
         <action
@@ -30,14 +33,35 @@
         <action
             android:id="@+id/action_imagesFragment_to_editClothesFragment"
             app:destination="@id/editClothesFragment" />
+        <action
+            android:id="@+id/action_imagesFragment_to_removeFragment"
+            app:destination="@id/removeFragment" />
     </fragment>
     <fragment
         android:id="@+id/editClothesFragment"
-        android:name="com.example.clothesapp.EditClothesFragment"
+        android:name="com.example.clothesapp.fragment.EditClothesFragment"
         android:label="fragment_edit_clothes"
         tools:layout="@layout/fragment_edit_clothes" >
         <action
             android:id="@+id/action_editClothesFragment_to_imagesFragment"
             app:destination="@id/imagesFragment" />
+        <action
+            android:id="@+id/action_editClothesFragment_to_removeFragment"
+            app:destination="@id/removeFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/removeFragment"
+        android:name="com.example.clothesapp.fragment.RemoveFragment"
+        android:label="fragment_remove"
+        tools:layout="@layout/fragment_remove" >
+        <action
+            android:id="@+id/action_removeFragment_to_imagesFragment"
+            app:destination="@id/imagesFragment" />
+        <action
+            android:id="@+id/action_removeFragment_to_editClothesFragment"
+            app:destination="@id/editClothesFragment" />
+        <action
+            android:id="@+id/action_removeFragment_to_changeImageFragment"
+            app:destination="@id/changeImageFragment" />
     </fragment>
 </navigation>
