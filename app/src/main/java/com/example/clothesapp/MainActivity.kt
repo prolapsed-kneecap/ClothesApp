@@ -40,7 +40,8 @@ class MainActivity : AppCompatActivity() {
         intent.action = Intent.ACTION_GET_CONTENT
         startActivityForResult(Intent.createChooser(intent, "Select Picture"), 1)
     }
-    fun getClothes(bitmap:Bitmap):Clothes {
+
+    fun getClothes(bitmap: Bitmap): Clothes {
         return Clothes(Shirt(), bitmap, Black())
     }
 }

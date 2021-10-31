@@ -1,20 +1,32 @@
 package com.example.clothesapp
 
+import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
 
 
-class ClothesRecyclerViewAdapter: RecyclerView.Adapter<ClothesRecyclerViewAdapter.MyViewHolder>(){
-    inner class MyViewHolder(itemView: View): RecyclerView.ViewHolder(itemView){
-        fun onBing(position: Int){
+class ClothesRecyclerViewAdapter : RecyclerView.Adapter<ClothesRecyclerViewAdapter.MyViewHolder>() {
+    inner class MyViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+        fun onBing(position: Int) {
             var currentClothes = data.currentListOfClothes[position]
-            itemView.findViewById<TextView>(R.id.textViewTypeItem).text = currentClothes.clothType.typeName
+            itemView.findViewById<TextView>(R.id.textViewTypeItem).text =
+                "Тип: ${currentClothes.clothType.typeName}"
             itemView.findViewById<TextView>(R.id.textViewNameItem).text = currentClothes.clothName
+            itemView.findViewById<TextView>(R.id.textViewTypeItem).text = "Тип: ${currentClothes.clothType.typeName}"
+            itemView.findViewById<TextView>(R.id.textViewColorItem).text = "Цвет: ${currentClothes.color.colorName}"
+            itemView.findViewById<TextView>(R.id.textViewWarmthItem).text = "Теплота: ${currentClothes.name.clothWarmth.toString()}"
+
             itemView.findViewById<ImageView>(R.id.imageView2).setImageBitmap(currentClothes.photo)
+            itemView.setOnClickListener {
+                var bundle = Bundle()
+                bundle.putInt("position", position)
+                itemView.findNavController().navigate(R.id.action_imagesFragment_to_editClothesFragment, bundle)
+            }
 //            itemView.findViewById<FloatingActionButton>(R.id.floatingActionButton3).setOnClickListener {
 //                val intent = Intent()
 //                intent.type = "image/*"
@@ -26,7 +38,8 @@ class ClothesRecyclerViewAdapter: RecyclerView.Adapter<ClothesRecyclerViewAdapte
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
-        val itemView = LayoutInflater.from(parent.context).inflate(R.layout.cloth_item, parent, false)
+        val itemView =
+            LayoutInflater.from(parent.context).inflate(R.layout.cloth_item, parent, false)
         return MyViewHolder(itemView)
     }
 
@@ -34,5 +47,5 @@ class ClothesRecyclerViewAdapter: RecyclerView.Adapter<ClothesRecyclerViewAdapte
         holder.onBing(position)
     }
 
-    override fun getItemCount(): Int  = data.currentListOfClothes.size
+    override fun getItemCount(): Int = data.currentListOfClothes.size
 }

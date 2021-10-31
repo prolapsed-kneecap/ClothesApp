@@ -22,6 +22,12 @@ class AddImageFragment : Fragment() {
     ): View? {
         val view = inflater.inflate(R.layout.fragment_add_image, container, false)
 
+        val fab = view.findViewById<FloatingActionButton>(R.id.fabOk)
+
+        fab.setOnClickListener {
+            view.findNavController().navigate(R.id.action_changeImageFragment_to_imagesFragment)
+        }
+
         view.findViewById<Button>(R.id.button).setOnClickListener {
             if (ActivityCompat.checkSelfPermission(
                     requireContext(),
@@ -34,11 +40,6 @@ class AddImageFragment : Fragment() {
                     2000
                 )
             } else {
-                val fab = view.findViewById<FloatingActionButton>(R.id.fabOk)
-                fab.visibility = View.VISIBLE
-                fab.setOnClickListener {
-                    view.findNavController().navigate(R.id.action_changeImageFragment_to_imagesFragment)
-                }
                 (activity as MainActivity?)?.startGallery()
             }
         }
