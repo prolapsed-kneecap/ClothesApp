@@ -51,9 +51,7 @@ class RemoveFragment : Fragment() {
                     data.currentFragment = R.id.imagesFragment
                     view.findNavController().navigate(R.id.action_removeFragment_to_imagesFragment)
                 }
-                ad.setNegativeButton("Нет", { p0, p1 ->
-
-                })
+                ad.setNegativeButton("Нет") { p0, p1 -> }
                 ad.create()
                 ad.show()
             } else {
