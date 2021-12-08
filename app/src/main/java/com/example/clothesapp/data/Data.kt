@@ -1,6 +1,7 @@
 package com.example.clothesapp.data
 
 import android.graphics.Bitmap
+import android.location.Location
 import com.example.clothesapp.*
 import com.example.clothesapp.fragment.ImagesFragment
 
@@ -30,7 +31,8 @@ object data {
         "Зелёный",
         "Фиолетовый",
         "Оранжевый",
-        "Серый"
+        "Серый",
+        "Розовый"
     )
 
     val allTypes = arrayOf(
@@ -66,6 +68,8 @@ object data {
         "Серый" to Gray(),
         "Розовый" to Pink()
     )
+
+    var latlan : Location = Location("")
 
     var chosenItems = mutableListOf<Int>()
 
