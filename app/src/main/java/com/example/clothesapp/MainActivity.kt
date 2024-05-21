@@ -2,46 +2,51 @@ package com.example.clothesapp
 
 import android.content.Intent
 import android.graphics.Bitmap
+import android.graphics.drawable.ColorDrawable
+import android.graphics.drawable.Drawable
+import android.net.Uri
+import android.os.Build
 import android.os.Bundle
 import android.provider.MediaStore
 import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.widget.ImageView
-import android.widget.TextView
+import android.widget.RemoteViews
 import android.widget.Toast
+import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.net.toUri
+import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
+import androidx.navigation.NavDeepLinkBuilder
+import androidx.navigation.NavDirections
 import androidx.navigation.findNavController
-import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.fragment.findNavController
-import com.example.clothesapp.data.data
-import com.example.clothesapp.data.data.currentListOfBitmaps
-import com.example.clothesapp.data.data.currentListOfClothes
-import com.example.clothesapp.fragment.AddImageFragment
-import com.example.clothesapp.fragment.EditClothesFragment
-import com.example.clothesapp.fragment.ImagesFragment
-import com.example.clothesapp.fragment.RemoveFragment
+import com.example.clothesapp.data.DataObject
+import com.example.clothesapp.data.DataObject.currentListOfBitmaps
+import com.example.clothesapp.data.DataObject.currentListOfClothes
+import com.example.clothesapp.ktClasses.*
 import com.example.clothesapp.ml.Modeltwo
 import org.tensorflow.lite.DataType
 import org.tensorflow.lite.support.tensorbuffer.TensorBuffer
-import java.io.FileInputStream
+import org.xmlpull.v1.XmlPullParser
 import java.io.IOException
-import java.nio.MappedByteBuffer
-import java.nio.channels.FileChannel
-import kotlin.jvm.Throws
 
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-
+        supportActionBar?.title = ""
+//        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+//        supportActionBar?.setHomeAsUpIndicator(R.drawable.d)
+        supportActionBar?.setBackgroundDrawable(ColorDrawable(resources.getColor(R.color.second_main)))
         supportFragmentManager.findFragmentById(R.id.nav_host_fragment)?.findNavController()
-
     }
 
+    @RequiresApi(Build.VERSION_CODES.O)
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if (requestCode == 1) {
@@ -58,7 +63,7 @@ class MainActivity : AppCompatActivity() {
 //                            .addBinaryBody("image_file", new File("/path/to/file.jpg"))
 //                            .addTextBody("size", "auto")
 //                            .build()
-//                    ).execute();
+//                    ).execute();ч
 //                response.saveContent(new File("no-bg.png"))
 
                 if (blackAndWhiteBitmap != null) {
@@ -81,43 +86,80 @@ class MainActivity : AppCompatActivity() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.removeItem -> {
-                val currentFragment = getVisibleFragment()
+
+                val intent = Intent("this", "tshirt://remove".toUri())
+                findNavController(R.id.nav_host_fragment).handleDeepLink(intent)
+
+//                val deepLink = NavDeepLinkBuilder(this)
+//                    .setGraph(R.navigation.nav_graph)
+//                    .setDestination(R.id.deepLink)
+//                    .createPendingIntent()
+
+
 //                currentFragment!!.requireView().findNavController().navigate(R.id.action_imagesFragment_to_removeFragment)
-                when (data.currentFragment) {
+                /*when (DataObject.currentFragment) {
                     R.id.imagesFragment -> {
+                        DataObject.currentFragment = R.id.removeFragment
                         currentFragment!!.requireView().findNavController()
                             .navigate(R.id.action_imagesFragment_to_removeFragment)
                     }
                     R.id.changeImageFragment -> {
+                        DataObject.currentFragment = R.id.removeFragment
                         currentFragment!!.requireView().findNavController()
                             .navigate(R.id.action_changeImageFragment_to_removeFragment)
                     }
                     R.id.editClothesFragment -> {
+                        DataObject.currentFragment = R.id.removeFragment
                         currentFragment!!.requireView().findNavController()
                             .navigate(R.id.action_editClothesFragment_to_removeFragment)
                     }
+                    R.id.startFragment -> {
+                        DataObject.currentFragment = R.id.removeFragment
+                        currentFragment!!.requireView().findNavController()
+                            .navigate(R.id.action_startFragment_to_removeFragment)
+                    }
 //                    NavHostFragment -> Toast.makeText(this, "ШТО? ${currentFragment!!.id}", Toast.LENGTH_SHORT).show()
-                }
+                }*/
             }
             R.id.setItem -> {
-                val currentFragment = getVisibleFragment()
+//                val currentFragment = getVisibleFragment()
+
+                val intent = Intent("this", "tshirt://set".toUri())
+                findNavController(R.id.nav_host_fragment).handleDeepLink(intent)
+                /*val uri = Uri.parse("tshirt://tshirt.com/set")
+                val intent = Intent()
+                intent.setAction(Intent.ACTION_VIEW)
+                intent.data = uri
+                currentFragment!!.requireView().findNavController().navigate*/
 //                currentFragment!!.requireView().findNavController().navigate(R.id.action_imagesFragment_to_removeFragment)
-                when (data.currentFragment) {
+                /*when (DataObject.currentFragment) {
                     R.id.imagesFragment -> {
+                        DataObject.currentFragment = R.id.startFragment
                         currentFragment!!.requireView().findNavController()
                             .navigate(R.id.action_imagesFragment_to_startFragment)
                     }
                     R.id.changeImageFragment -> {
+                        DataObject.currentFragment = R.id.startFragment
                         currentFragment!!.requireView().findNavController()
                             .navigate(R.id.action_changeImageFragment_to_startFragment)
                     }
                     R.id.editClothesFragment -> {
+                        DataObject.currentFragment = R.id.startFragment
                         currentFragment!!.requireView().findNavController()
                             .navigate(R.id.action_editClothesFragment_to_startFragment)
                     }
+                    R.id.removeFragment -> {
+                        DataObject.currentFragment = R.id.startFragment
+                        currentFragment!!.requireView().findNavController()
+                            .navigate(R.id.action_removeFragment_to_startFragment)
+                    }*/
 //                    NavHostFragment -> Toast.makeText(this, "ШТО? ${currentFragment!!.id}", Toast.LENGTH_SHORT).show()
-                }
+                //}
                 Toast.makeText(this, "set", Toast.LENGTH_SHORT).show()
+            }
+            R.id.imageItem -> {
+                val intent = Intent("this", "tshirt://all".toUri())
+                findNavController(R.id.nav_host_fragment).handleDeepLink(intent)
             }
         }
         return super.onOptionsItemSelected(item)
@@ -139,7 +181,8 @@ class MainActivity : AppCompatActivity() {
         return fileChannel.map(FileChannel.MapMode.READ_ONLY, startOffSets, declaredLenght              )
     }*/
 
-    private fun getClothes(bitmap: Bitmap, bwBitmap: Bitmap): Clothes {
+    @RequiresApi(Build.VERSION_CODES.O)
+    private fun getClothes(bitmap: Bitmap, bwBitmap: Bitmap): Cloth {
         val resized = Bitmap.createScaledBitmap(bitmap, 28, 28, true)
 //            val tbuffer = TensorImage.fromBitmap(resized)
 
@@ -168,9 +211,9 @@ class MainActivity : AppCompatActivity() {
         model.close()
 
         if (outputFeature0.floatArray[0] >= outputFeature0.floatArray[1]) {
-            return Clothes(TShirt(), bitmap, White())
+            return Cloth(CN.TSHIRT, ClothesColor.WHITE, CT.LIGHT_TOP, 0, bitmap)
         } else {
-            return Clothes(Jeans(), bitmap, Black())
+            return Cloth(CN.JEANS, ClothesColor.BLACK, CT.LIGHT_DOWN, 1, bitmap)
         }
     }
 

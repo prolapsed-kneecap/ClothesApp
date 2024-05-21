@@ -1,5 +1,6 @@
 package com.example.clothesapp
 
+import com.example.clothesapp.ktClasses.Main
 data class Clouds(
-    val all: Double? = 0.0
+    val all: Int = 0
 )

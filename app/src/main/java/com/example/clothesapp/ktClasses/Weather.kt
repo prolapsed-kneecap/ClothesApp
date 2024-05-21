@@ -1,6 +1,5 @@
-package com.example.clothesapp
+package com.example.clothesapp.ktClasses
 
-import com.example.clothesapp.ktClasses.Main
 data class Weather(
     val description: String = "",
     val icon: String = "",

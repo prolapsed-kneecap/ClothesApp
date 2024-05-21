@@ -14,5 +14,5 @@ data class WeathermanResponse(
     var visibility: Double = 0.0,
 
     var weather: List<Weather>? = null,
-    var wind: Wind = Wind("", 0.0)
+    //var wind: Wind = Wind("", 0.0)
 )

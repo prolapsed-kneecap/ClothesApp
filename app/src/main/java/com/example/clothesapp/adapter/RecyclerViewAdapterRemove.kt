@@ -1,37 +1,34 @@
 package com.example.clothesapp.adapter
 
-import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
-import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.example.clothesapp.R
-import com.example.clothesapp.data.data
+import com.example.clothesapp.data.DataObject
 
 
 class RecyclerViewAdapterRemove : RecyclerView.Adapter<RecyclerViewAdapterRemove.MyViewHolder>() {
     inner class MyViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         fun onBing(position: Int) {
-            var currentClothes = data.currentListOfClothes[position]
+            var currentClothes = DataObject.currentListOfClothes[position]
             itemView.findViewById<TextView>(R.id.textViewTypeItem).text =
-                "Тип: ${currentClothes.clothType.typeName}"
-            itemView.findViewById<TextView>(R.id.textViewNameItem).text = currentClothes.clothName
-            itemView.findViewById<TextView>(R.id.textViewTypeItem).text = "Тип: ${currentClothes.clothType.typeName}"
-            itemView.findViewById<TextView>(R.id.textViewColorItem).text = "Цвет: ${currentClothes.color.colorName}"
-            itemView.findViewById<TextView>(R.id.textViewWarmthItem).text = "Теплота: ${currentClothes.name.clothWarmth.toString()}"
+                "Тип: ${currentClothes.type.typeName}"
+            itemView.findViewById<TextView>(R.id.textViewNameItem).text = currentClothes.cloth.clothName
+            itemView.findViewById<TextView>(R.id.textViewTypeItem).text = "Тип: ${currentClothes.type.typeName}"
+            itemView.findViewById<TextView>(R.id.textViewColorItem).text = "Цвет: ${currentClothes.clothColor.colorToName.second}"
 
             itemView.findViewById<ImageView>(R.id.imageView2).setImageBitmap(currentClothes.photo)
             itemView.setOnClickListener {
-                if (position in data.chosenItems){
+                if (position in DataObject.chosenItems){
                     itemView.alpha=1F
-                    data.chosenItems.remove(position)
+                    DataObject.chosenItems.remove(position)
                 }
                 else{
                     itemView.alpha=0.5F
-                    data.chosenItems.add(position)
+                    DataObject.chosenItems.add(position)
                 }
             }
 //            itemView.findViewById<FloatingActionButton>(R.id.floatingActionButton3).setOnClickListener {
@@ -54,5 +51,5 @@ class RecyclerViewAdapterRemove : RecyclerView.Adapter<RecyclerViewAdapterRemove
         holder.onBing(position)
     }
 
-    override fun getItemCount(): Int = data.currentListOfClothes.size
+    override fun getItemCount(): Int = DataObject.currentListOfClothes.size
 }

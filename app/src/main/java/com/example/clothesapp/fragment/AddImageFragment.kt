@@ -12,7 +12,7 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.findNavController
 import com.example.clothesapp.MainActivity
 import com.example.clothesapp.R
-import com.example.clothesapp.data.data
+import com.example.clothesapp.data.DataObject
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 
 
@@ -26,8 +26,15 @@ class AddImageFragment : Fragment() {
         val fab = view.findViewById<FloatingActionButton>(R.id.fabOk)
 
         fab.setOnClickListener {
-            data.currentFragment = R.id.imagesFragment
-            view.findNavController().navigate(R.id.action_changeImageFragment_to_imagesFragment)
+            DataObject.currentFragment = R.id.imagesFragment
+            val bund = Bundle()
+            if (DataObject.currentListOfClothes.size >= 1) {
+                bund.putInt("position", DataObject.currentListOfClothes.size - 1)
+                view.findNavController()
+                    .navigate(R.id.action_changeImageFragment_to_editClothesFragment, bund)
+            } else {
+                view.findNavController().navigate(R.id.action_changeImageFragment_to_imagesFragment)
+            }
         }
 
         view.findViewById<Button>(R.id.button).setOnClickListener {
